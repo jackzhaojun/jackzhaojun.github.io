@@ -1,0 +1,49 @@
+.sidebar {
+    position: fixed;
+    background-color: #eee;
+    height: 100%;
+    padding-top: 50px;
+}
+.main {
+    padding: 30px 50px;
+}
+.head{
+    margin-left: -50%;
+    width: 160px;
+    border-radius: 50%;
+}
+.author-info {
+    margin-left: -50%;
+}
+.author-info h3 {
+
+}
+.icon-github {
+    background: url(../img/icon-github.png) center;
+    display: inline-block;
+    line-height: 28px;
+    height: 28px;
+    width: 28px;
+}
+.icon-weibo {
+    background: url(../img/icon-weibo.png) center;
+    display: inline-block;
+    line-height: 28px;
+    height: 28px;
+    width: 31px;
+}
+.author-info ul {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 1px solid #D1D1D1;
+}
+.blog-author-info .glyphicon {
+    top: 2px;
+    margin-right: 10px;
+    line-height: inherit;
+}
+.home {
+    position: fixed;
+    top: 50px;
+    left: 25%;
+}

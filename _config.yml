@@ -1,0 +1,17 @@
+
+
+# Dependencies
+markdown:      Kramdown
+highlighter:       true
+
+# Permalinks
+permalink:        date
+
+# Server
+#source:           ./docs
+#destination:      ./_gh_pages
+#baseurl:          /blog
+#host:             127.0.0.1
+#port:             9001
+encoding:         UTF-8
+#url:              http://localhost:9001
