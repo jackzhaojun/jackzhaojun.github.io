@@ -1,11 +1,11 @@
 
 
 # Dependencies
-markdown:      Kramdown
-highlighter:       true
+#markdown:      Kramdown
+#highlighter:       true
 
 # Permalinks
-permalink:        date
+#permalink:        date
 
 # Server
 #source:           ./docs
@@ -13,5 +13,5 @@ permalink:        date
 #baseurl:          /blog
 #host:             127.0.0.1
 #port:             9001
-encoding:         UTF-8
+#encoding:         UTF-8
 #url:              http://localhost:9001
