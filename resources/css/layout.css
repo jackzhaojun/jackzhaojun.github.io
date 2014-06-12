@@ -33,6 +33,7 @@
     width: 31px;
 }
 .author-info ul {
+    width: 200px;
     padding-top: 15px;
     padding-bottom: 15px;
     border-top: 1px solid #D1D1D1;
