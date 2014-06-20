@@ -5,7 +5,7 @@
 jquery.ui.position组件是一个独立的util组件不依赖任何其他组件，可以独立存在。
 它为我们提供了相对另一个元素定位一个元素的能力
 举个栗子： 我们需要一个div相对浏览器居中position组件一个方法搞定: <a href="#" target="_blank">示例</a></br>
-对position 有了解的可以直接跳过到<a href="source">这里</a>
+对position 有了解的可以直接跳过到<a href="#source" >这里</a>
 
     $('.mydiv').position({
         'at': 'center',
@@ -41,7 +41,7 @@ so easy
     "flipfit"：首先应用 flip 逻辑，把元素放置在允许更多元素可见的那一边。然后应用 fit 逻辑，确保尽可能多的元素可见。
     "none"：不应用任何 collision 检测。
   
-##<a href="javascript:void();" name="source">源码分析</a>  
+##<a href="javascript:void();" name="source" target="source">源码分析</a>  
 API介绍结束，分析源码前有些基础知识有必要先了解下</br>
 height、clientHeight、scrollHeight、offsetHeight区别
 >   height :其实Height高度跟其他的高度有点不一样,在javascript中它是属于对象的style对象属性中的一个成员,它的值是一个字符类型的,而另外三个高度的值是int类型的,它们是对象的属性.因此这样document.body.height就会提示undenifine,而必须写成document.body.style.height<br>
