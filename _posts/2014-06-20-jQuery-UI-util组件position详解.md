@@ -5,7 +5,7 @@
 jquery.ui.position组件是一个独立的util组件不依赖任何其他组件，可以独立存在。
 它为我们提供了相对另一个元素定位一个元素的能力
 举个栗子： 我们需要一个div相对浏览器居中position组件一个方法搞定: <a href="#" target="_blank">示例</a></br>
-对position 有了解的可以直接跳过到<a href="#source" >这里</a>
+对position 有了解的可以直接跳过到<a href="#source">这里</a>
 
     $('.mydiv').position({
         'at': 'center',
@@ -41,7 +41,7 @@ so easy
     "flipfit"：首先应用 flip 逻辑，把元素放置在允许更多元素可见的那一边。然后应用 fit 逻辑，确保尽可能多的元素可见。
     "none"：不应用任何 collision 检测。
   
-##<a href="javascript:void();" name="source" target="source">源码分析</a>  
+##<a href="javascript:void();" name="source">源码分析</a>  
 API介绍结束，分析源码前有些基础知识有必要先了解下</br>
 height、clientHeight、scrollHeight、offsetHeight区别
 >   height :其实Height高度跟其他的高度有点不一样,在javascript中它是属于对象的style对象属性中的一个成员,它的值是一个字符类型的,而另外三个高度的值是int类型的,它们是对象的属性.因此这样document.body.height就会提示undenifine,而必须写成document.body.style.height<br>
@@ -60,3 +60,47 @@ height、clientHeight、scrollHeight、offsetHeight区别
     		parseInt( offsets[ 1 ], 10 ) * ( rpercent.test( offsets[ 1 ] ) ? height / 100 : 1 )
     	];
     }   
+
+$.position 对象提供了三个工具方法
+>   scrollbarWidth: 用来计算滚动条的宽度，不同浏览器不同的版本滚动条的宽度也是不一样，所以需要一个可以计算滚动宽度的函数。
+    它的实现思路很简单， 先把两个嵌套div放到body里，设置外层的overflow：hidden 然后获取此时外层div的offsetWidth，
+    然后把外层的div设置为overflow:scroll再获取外层div的offsetWidth，最后两个值想减就是滚动条的宽度了。如果两个值相等的话 则第二次取clientWidth的值
+    
+    var w1, w2,
+		div = $( "<div style='display:block;width:50px;height:50px;overflow:hidden;'><div style='height:100px;width:auto;'></div></div>" ),
+		innerDiv = div.children()[0];
+    	$( "body" ).append( div );
+    	w1 = innerDiv.offsetWidth;
+    	div.css( "overflow", "scroll" );
+    
+    	w2 = innerDiv.offsetWidth;
+        //两次值想等的话取clientWidth
+    	if ( w1 === w2 ) {
+    		w2 = div[0].clientWidth;
+    	}
+    
+    	div.remove();
+    
+    	return (cachedScrollbarWidth = w1 - w2);
+        
+>   getScrollInfo:  用来判断容器是否有滚动条，并且返回x,y滚动条的宽度值，没有返回0。 
+    函数首先会获取容器overflow-x,y的值然后判断是否是，scroll或者auto如果是auto的话还需要判断当前容器的可视区长度与容器的scrollWidth做比较来判断容器是否滚动。
+    
+>   getWithinInfo: 获取容器的信息，默认容器为window, 包括信息如下
+
+    var withinElement = $( element || window ),
+        isWindow = $.isWindow( withinElement[0] );
+	return {
+		element: withinElement, //jquery对戏那个
+		isWindow: isWindow, //是否为window对象
+		offset: withinElement.offset() || { left: 0, top: 0 },//
+		scrollLeft: withinElement.scrollLeft(),
+		scrollTop: withinElement.scrollTop(),
+		width: isWindow ? withinElement.width() : withinElement.outerWidth(),
+		height: isWindow ? withinElement.height() : withinElement.outerHeight()
+	};
+
+前期的工具函数已经准备妥当，接下来就看下它的实现思路。
+>   首先会判断对of元素进行判断，分为四种情况1.document 2.window 3.event 4.普通文本节点 并获取到他们的内容高度，宽度和offset信息。</br>
+    接下来会对my,at 参数进行加工 例如： at: 'left'会加工为at: 'left center', at,my确少的值都会以center补全。 at: 'left+10 bottom+10' 会加工为at: 'left bottom' 然后把偏移量保存到一个变量里</br>
+    在接下来会通过上面的值来计算被定位元素的top,left值， 当top,left计算完毕后需要对他进行碰撞检测。最后才会进行offset的设置
