@@ -62,12 +62,12 @@ height、clientHeight、scrollHeight、offsetHeight区别
     }   
 
 $.position 对象提供了三个工具方法
->   scrollbarWidth: 用来计算滚动条的宽度，不同浏览器不同的版本滚动条的宽度也是不一样，所以需要一个可以计算滚动宽度的函数。
-    它的实现思路很简单， 先把两个嵌套div放到body里，设置外层的overflow：hidden 然后获取此时外层div的offsetWidth，
-    然后把外层的div设置为overflow:scroll再获取外层div的offsetWidth，最后两个值想减就是滚动条的宽度了。如果两个值相等的话 则第二次取clientWidth的值
+
+>	scrollbarWidth: 用来计算滚动条的宽度，不同浏览器不同的版本滚动条的宽度也是不一样，所以需要一个可以计算滚动宽度的函数。它的实现思路很简单， 先把两个嵌套div放到body里，设置外层的overflow：hidden 然后获取此时外层div的offsetWidth，
+然后把外层的div设置为overflow:scroll再获取外层div的offsetWidth，最后两个值想减就是滚动条的宽度了。如果两个值相等的话 则第二次取clientWidth的值
     
     var w1, w2,
-		div = $( "<div style='display:block;width:50px;height:50px;overflow:hidden;'><div style='height:100px;width:auto;'></div></div>" ),
+		div = $( "<div style='display:block;width:50px;height:50px;overflow:hidden;'><div style='height:100px		;width:auto;'></div></div>" ),
 		innerDiv = div.children()[0];
     	$( "body" ).append( div );
     	w1 = innerDiv.offsetWidth;
