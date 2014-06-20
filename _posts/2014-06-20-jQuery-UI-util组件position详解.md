@@ -1,8 +1,7 @@
 ---
         layout: page
 ---
-##jQuery UI util组件 position解析
----
+===
 jquery.ui.position组件是一个独立的util组件不依赖任何其他组件，可以独立存在。
 它为我们提供了相对另一个元素定位一个元素的能力
 举个栗子： 我们需要一个div相对浏览器居中position组件一个方法搞定: <a href="#" target="_blank">示例</a></br>
