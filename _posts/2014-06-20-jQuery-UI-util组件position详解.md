@@ -48,6 +48,7 @@ height、clientHeight、scrollHeight、offsetHeight区别
 >height :其实Height高度跟其他的高度有点不一样,在javascript中它是属于对象的style对象属性中的一个成员,它的值是一个字符类型的,而另外三个高度的值是int类型的,它们是对象的属性.因此这样document.body.height就会提示undenifine,而必须写成document.body.style.height<br>
 >clientHeight:可见区域的宽度,不包括boder的宽度,如果区域内带有滚动条,还应该减去横向滚动条不可用的高度。滚动条的宽度不同浏览器不同的版本宽度值都不一样这个比较坑爹，不过还是有方法可以计算的，在position的源码里你会看到的<br>
 >scrollHeight:这个属性就比较麻烦了,因为它们在火狐跟IE下简直差太多了.在火狐下还很好理解,它其实就是滚动条可滚动的部分还要加上boder的高度还要加上横向滚动条不可用的高度,与clientHeight比起来,多个border的高度跟横向滚动条不可用的高度.<br>
+>在IE中 scrollHeight确是指这个对象它所包含的对象的高度加上boder的高度和marging,如果它里面没有包含对象或者这个对象的高度值未设置,那么它的值将为15<br>
 >offsetHeight:可见区域的宽度,如果有设置boder的话还应该加上boder的值
     
 基础知识了解后，就可以正式分析看他的源码了。 先看下源码里提供的一些工具函数
