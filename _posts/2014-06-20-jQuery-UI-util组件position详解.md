@@ -1,4 +1,6 @@
-
+---
+        layout: page
+---
 ##jQuery UI util组件 position解析
 ---
 jquery.ui.position组件是一个独立的util组件不依赖任何其他组件，可以独立存在。
