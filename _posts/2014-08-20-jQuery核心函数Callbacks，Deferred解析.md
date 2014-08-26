@@ -134,4 +134,63 @@ Callbacks是一个多用途的回调列表对象，提供了强大的方式来�
 
 ###jQuery.Deferred
 
-未完待续
+jQuery.Deferred的实现依赖于jQuery.Callbacks，deferred提供了三种动作的管理分别是resolve, reject, notify这三组动作分别用三个callbacks来
+管理，向这三组动作添加回调函数则使用done, fail, progress。如何理解resolve，reject，notify这三个动作呢，如果你有一个延迟的操作(比如Ajax操作)
+需要deferred来管理的话， 当Ajax响应成功的时候你需要调用resolve来说明延迟操作成功了，resolve执行后deferred会把对应的由done添加的函数拿出来全部执行一次；
+相应的reject则是在Ajax响应失败的情况下来调用，同样会把对应的由fail添加的函数拿出来执行一遍； notify则是一个通知动作当Ajax没有发出前可以调用notify。
+接下来看下 大概的源码
+
+    Deferred: function( func ) {
+    		var tuples = [
+    				// 这里标识了三种动作，分别用三个callbacks来管理
+    				[ "resolve", "done", jQuery.Callbacks("once memory"), "resolved" ],
+    				[ "reject", "fail", jQuery.Callbacks("once memory"), "rejected" ],
+    				[ "notify", "progress", jQuery.Callbacks("memory") ]
+    			],
+    			state = "pending",
+    			promise = {
+    				...
+    			},
+    			deferred = {};
+    		//遍历tuples, 把resolve，reject，notify以及对对应的done,fail,progress都添加到上一行定义的deferred对象里。
+    		jQuery.each( tuples, function( i, tuple ) {
+    			var list = tuple[ 2 ], //每个操作对应的callbacks
+    				stateString = tuple[ 3 ]; //每个操作对应的状态标识 resolved | rejected
+
+                //done，fail， progress方法添加到promise上
+    			promise[ tuple[1] ] = list.add;
+
+    			// Handle state
+    			if ( stateString ) {
+    			    //添加resolve，reject列表前需要添加三个函数
+    			    //1. 状态标识函数
+    			    //2. 如何添加resolve列表则把reject列表置为disable，反之亦然
+    			    //3. 锁定notify列表
+    				list.add(function() {
+    					// state = [ resolved | rejected ]
+    					state = stateString;
+
+    				// [ reject_list | resolve_list ].disable; progress_list.lock
+    				}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
+    			}
+
+    			// deferred[ resolve | reject | notify ]
+    			deferred[ tuple[0] ] = function() {
+    				deferred[ tuple[0] + "With" ]( this === deferred ? promise : this, arguments );
+    				return this;
+    			};
+    			deferred[ tuple[0] + "With" ] = list.fireWith;
+    		});
+
+    		// Make the deferred a promise
+    		promise.promise( deferred );
+
+    		// Call given func if any
+    		if ( func ) {
+    			func.call( deferred, deferred );
+    		}
+
+    		// All done!
+    		return deferred;
+    	},
+
