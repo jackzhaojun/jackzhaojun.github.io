@@ -1,8 +1,12 @@
-
+name: 7.
+author: 7.
+description: 在路上
+github: https://github.com/jackzhaojun
+email: mailto:zhaojunbest@126.com
 
 # Dependencies
 #markdown:      Kramdown
-#highlighter:       true
+
 
 # Permalinks
 #permalink:        date
@@ -12,6 +16,35 @@
 #destination:      ./_gh_pages
 baseurl:          /
 #host:             127.0.0.1
-#port:             9001
-#encoding:         UTF-8
+#port:             9002
+encoding:         UTF-8
+excerpt_separator: <!--more--> #摘要
 #url:              http://localhost:9001
+
+#分页
+paginate: 10
+paginate_path: "page:num"
+
+#pygments: true
+markdown: redcarpet
+highlighter: pygments #语法高亮
+redcarpet:
+  extensions:
+    - tables
+    - hard_wrap
+    - no_intra_emphasis
+    - autolink
+    - strikethrough
+    - fenced_code_blocks
+
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"

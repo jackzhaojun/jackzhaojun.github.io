@@ -1,8 +1,8 @@
 ---
-        layout: page
+category: jQuery-UI
 ---
----
-**jquery-ui@version1.9.1**
+###jquery-ui@version1.9.1
+<!--more-->
 
 jquery.ui.position组件是一个独立的util组件不依赖任何其他组件，可以独立存在。
 它为我们提供了相对另一个元素定位一个元素的能力

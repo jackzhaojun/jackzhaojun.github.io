@@ -1,9 +1,8 @@
 ---
-        layout: page
+category: jQuery
 ---
----
-**jquery@version1.11.1**
-
+###jquery@version1.11.1
+<!--more-->
 jQuery.Callbacks函數是jQuery的核心函数之一，另一个核心函数-延迟对象$.Deferred的实现就是依赖其Callbacks函数。而其他重要的函数如$.ajax,
 $.animate的实现都是依赖$.Deferred来实现的。 深入了解$.Callbacks和$.Deferred函数的原理有助于我们可以更高效的使用其实现我们需要的一些功能。
 

@@ -1,9 +1,8 @@
 ---
-        layout: page
+category: jQuery
 ---
----
-**jquery@version1.11.1**
-
+###jquery@version1.11.1
+<!--more-->
 ###总体设计
 
 jQuery的Ajax实现依赖于$.Callbacks和$.Deferred（了解Ajax建议先了解<a href="http://t.cn/Rh6oTUs">Callbacks,Deferred</a>）,从总体设计来看可以分三个部分。
